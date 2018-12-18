@@ -16,30 +16,32 @@ function createWindow() {
     const uA = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/69.0.3497.81 Chrome/69.0.3497.81 Safari/537.36";
     win.loadURL("http://pl.grepolis.com", {userAgent: uA});
 
-    const makeIIFstring = func => '(' + func.toString() +')();';
+    win.webContents.once('dom-ready', () => {
+        const makeIIFstring = func => '(' + func.toString() +')();';
 
-    (async () => {
-        await win.webContents.executeJavaScript(makeIIFstring(() => {
-            let loginForm = document.getElementById("login_userid");
-            loginForm.focus();
-        }));
+        (async () => {
+            await win.webContents.executeJavaScript(makeIIFstring(() => {
+                let loginForm = document.getElementById("login_userid");
+                loginForm.focus();
+            }));
 
-        for(let ch of "login")
-            await win.webContents.sendInputEvent({keyCode: ch, type: 'char'});
+            for(let ch of "login")
+                await win.webContents.sendInputEvent({keyCode: ch, type: 'char'});
 
-        await win.webContents.executeJavaScript(makeIIFstring(() => {
-            let passwordForm = document.getElementById("login_password");
-            passwordForm.focus();
-        }));
+            await win.webContents.executeJavaScript(makeIIFstring(() => {
+                let passwordForm = document.getElementById("login_password");
+                passwordForm.focus();
+            }));
 
-        for(let ch of "password")
-            await win.webContents.sendInputEvent({keyCode: ch, type: 'char'});
+            for(let ch of "password")
+                await win.webContents.sendInputEvent({keyCode: ch, type: 'char'});
 
-        win.webContents.executeJavaScript(makeIIFstring(() => {
-            let loginBtn = document.getElementById("login_Login");
-            loginBtn.click();
-        }));
-    })();
+            win.webContents.executeJavaScript(makeIIFstring(() => {
+                let loginBtn = document.getElementById("login_Login");
+                loginBtn.click();
+            }));
+        })();
+    }); 
 
     // Emitted when the window is closed.
     win.on('closed', () => {
