@@ -1,0 +1,22 @@
+{
+  "name": "grepolisdb",
+  "version": "0.1.0",
+  "description": "Program do przechwytywania listy miast offowych / ogniowych z forum sojuszu i zapisywania ich do pliku",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [
+    "grepolis",
+    "script",
+    "off",
+    "towns",
+    "database"
+  ],
+  "author": "Droni & Aktyn",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^3.0.13"
+  },
+  "dependencies": {}
+}
