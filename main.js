@@ -19,7 +19,7 @@ function createWindow() {
     win.webContents.once('dom-ready', () => {
         const makeIIFstring = func => '(' + func.toString() +')();';
 
-        (async () => {
+        (async function () {
             await win.webContents.executeJavaScript(makeIIFstring(() => {
                 let loginForm = document.getElementById("login_userid");
                 loginForm.focus();
@@ -41,7 +41,7 @@ function createWindow() {
                 loginBtn.click();
             }));
         })();
-    }); 
+    });
 
     // Emitted when the window is closed.
     win.on('closed', () => {
