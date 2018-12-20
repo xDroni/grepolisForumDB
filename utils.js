@@ -1,7 +1,9 @@
 const prompt = require('prompt-sync')();
 const fs = require('fs');
 
-const makeIIFstring = func => '(' + func.toString() +')();';
+const makeIIFstring = (func, ...args) => {
+	return `(${func.toString()})(${ args.map(arg => JSON.stringify(arg)).join(',') });`;
+};
 
 const self = {
 	wait: (miliseconds) => {
@@ -26,8 +28,8 @@ const self = {
 		}
 	},
 
-	executeJS: (window, func) => {
-		return window.webContents.executeJavaScript(makeIIFstring(func));
+	executeJS: (window, func, ...args) => {
+		return window.webContents.executeJavaScript(makeIIFstring(func, ...args));
 	},
 
 	sendKeys: async (window, keys, delay) => {
